@@ -1,15 +1,15 @@
-# fly.toml app configuration file generated for phonebook-medsiala on 2024-04-20T02:45:57+02:00
+# fly.toml app configuration file generated for phonebook-medsiala-lingering-waterfall-1295 on 2024-04-20T17:56:41+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'phonebook-medsiala'
+app = 'phonebook-medsiala-lingering-waterfall-1295'
 primary_region = 'cdg'
 
 [build]
 
 [env]
-  PORT = "3000" 
+  PORT = '3000'
 
 [http_service]
   internal_port = 3000

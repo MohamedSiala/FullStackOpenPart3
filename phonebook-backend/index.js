@@ -16,6 +16,7 @@ app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :data")
 );
 
+app.use(express.static("dist"));
 let persons = [
   {
     id: 1,
@@ -68,9 +69,9 @@ app.get("/api/persons/:id", (request, response) => {
 
 app.delete("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
+  const personToDelete = persons.find((person) => person.id === id);
   persons = persons.filter((person) => person.id !== id);
-
-  response.status(204).end();
+  response.json(personToDelete);
 });
 
 app.post("/api/persons", (request, response) => {
