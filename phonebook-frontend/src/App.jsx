@@ -28,16 +28,25 @@ const App = () => {
         name: newName,
         number: newNumber,
       };
-      personsService.create(personToAdd).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
-        setNewName("");
-        setNewNumber("");
-        setError(false);
-        setMessage(`Added ${returnedPerson.name}`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 4000);
-      });
+      personsService
+        .create(personToAdd)
+        .then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson));
+          setNewName("");
+          setNewNumber("");
+          setError(false);
+          setMessage(`Added ${returnedPerson.name}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 4000);
+        })
+        .catch((error) => {
+          setError(true);
+          setMessage(`error: ${error.response.data.error}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        });
     } else {
       if (
         window.confirm(
@@ -64,10 +73,12 @@ const App = () => {
               setMessage(null);
             }, 4000);
           })
-          .catch(() => {
+          .catch((error) => {
             setError(true);
             setMessage(
-              `Information of ${person.name} has already been removed from the server`
+              error.response.data.error
+                ? error.response.data.error
+                : `Information of ${person.name} has already been removed from the server`
             );
             setTimeout(() => {
               setMessage(null);
